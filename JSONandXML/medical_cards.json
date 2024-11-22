@@ -1,0 +1,10 @@
+[
+    {
+        "patient_id": 1,
+        "diagnoses": [1]
+    },
+    {
+        "patient_id": 2,
+        "diagnoses": [2]
+    }
+]

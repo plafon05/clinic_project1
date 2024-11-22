@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<clinic_data>
+    <Diagnosis>
+        <id>1</id>
+        <patient_id>1</patient_id>
+        <description>ОРВИ</description>
+        <date>2024-11-20</date>
+    </Diagnosis>
+    <Diagnosis>
+        <id>2</id>
+        <patient_id>2</patient_id>
+        <description>Грипп</description>
+        <date>2024-11-21</date>
+    </Diagnosis>
+</clinic_data>
