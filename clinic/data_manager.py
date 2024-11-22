@@ -1,6 +1,13 @@
 import json
 import xml.etree.ElementTree as ET
 from typing import List
+from clinic.patient import Patient
+from clinic.doctor import Doctor
+from clinic.appointment import Appointment
+from clinic.diagnosis import Diagnosis
+from clinic.medical_card import MedicalCard
+from clinic.prescription import Prescription
+from clinic.recipe import Recipe
 
 
 class DataManager:

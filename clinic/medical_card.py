@@ -4,6 +4,7 @@ from clinic.diagnosis import Diagnosis
 
 
 class MedicalCard:
+    medical_cards: List['MedicalCard'] = []
     def __init__(self, patient: Patient, card_number: str, diagnoses: List[Diagnosis] = None):
         if not isinstance(patient, Patient):
             raise TypeError("patient должен быть экземпляром класса Patient.")
@@ -27,3 +28,15 @@ class MedicalCard:
         patient = Patient.from_dict(data["patient"])
         diagnoses = [Diagnosis.from_dict(d) for d in data.get("diagnoses", [])]
         return cls(patient=patient, card_number=data["card_number"], diagnoses=diagnoses)
+
+    @classmethod
+    def add_medical_card(cls, card: 'MedicalCard') -> None:
+        cls.medical_cards.append(card)
+
+    @classmethod
+    def get_all_medical_cards(cls) -> List['MedicalCard']:
+        return cls.medical_cards
+
+    @classmethod
+    def delete_medical_card(cls, card: 'MedicalCard') -> None:
+        cls.medical_cards.remove(card)

@@ -1,8 +1,10 @@
-from typing import Dict
+from typing import Dict, List
 from clinic.patient import Patient
 
 
 class Prescription:
+    prescriptions: List['Prescription'] = []
+
     def __init__(self, patient: Patient, medication: str, dosage: str, duration: str):
         if not isinstance(patient, Patient):
             raise TypeError("patient должен быть экземпляром класса Patient.")
@@ -29,3 +31,15 @@ class Prescription:
     def from_dict(cls, data: Dict[str, str]):
         patient = Patient.from_dict(data["patient"])
         return cls(patient=patient, medication=data["medication"], dosage=data["dosage"], duration=data["duration"])
+
+    @classmethod
+    def add_prescription(cls, prescription: 'Prescription') -> None:
+        cls.prescriptions.append(prescription)
+
+    @classmethod
+    def get_all_prescriptions(cls) -> List['Prescription']:
+        return cls.prescriptions
+
+    @classmethod
+    def delete_prescription(cls, prescription: 'Prescription') -> None:
+        cls.prescriptions.remove(prescription)

@@ -1,7 +1,9 @@
-from typing import Dict
+from typing import Dict, List
 
 
 class Doctor:
+    doctors: List['Doctor'] = []
+
     def __init__(self, name: str, specialty: str):
         if not name or not isinstance(name, str):
             raise ValueError("Имя врача должно быть непустой строкой.")
@@ -16,3 +18,15 @@ class Doctor:
     @classmethod
     def from_dict(cls, data: Dict[str, str]):
         return cls(name=data["name"], specialty=data["specialty"])
+
+    @classmethod
+    def add_doctor(cls, doctor: 'Doctor') -> None:
+        cls.doctors.append(doctor)
+
+    @classmethod
+    def get_all_doctors(cls) -> List['Doctor']:
+        return cls.doctors
+
+    @classmethod
+    def delete_doctor(cls, doctor: 'Doctor') -> None:
+        cls.doctors.remove(doctor)

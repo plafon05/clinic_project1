@@ -14,8 +14,7 @@ def main_menu():
     print("4. Управление диагнозами")
     print("5. Управление медицинскими картами")
     print("6. Управление рецептами")
-    print("7. Сохранить данные")
-    print("8. Загрузить данные")
+    print("7. Сохранить данные или Загрузить данные")
     print("0. Выход")
     return input("Выберите действие: ")
 
@@ -31,14 +30,19 @@ def manage_patients():
             name = input("Введите имя пациента: ")
             age = int(input("Введите возраст пациента: "))
             patient = Patient(name=name, age=age)
+            Patient.add_patient(patient)
             print("Пациент успешно добавлен.")
-        except ValueError as e:
-            print(f"Ошибка: {e}")
+        except ValueError:
+            print("Ошибка: возраст должен быть числом.")
 
     elif choice == "2":
-        print("\nСписок пациентов:")
-        for patient in Patient.get_all_patients():
-            print(f"Имя: {patient.name}, Возраст: {patient.age}")
+        patients = Patient.get_all_patients()
+        if not patients:
+            print("Список пациентов пуст.")
+        else:
+            print("\nСписок пациентов:")
+            for patient in patients:
+                print(f"Имя: {patient.name}, Возраст: {patient.age}")
 
     elif choice == "3":
         try:
@@ -48,8 +52,6 @@ def manage_patients():
             print("Пациент успешно удален.")
         except StopIteration:
             print("Пациент с таким именем не найден.")
-        except ValueError as e:
-            print(f"Ошибка: {e}")
 
 def manage_doctors():
     print("\n=== Управление врачами ===")
@@ -62,14 +64,19 @@ def manage_doctors():
             name = input("Введите имя врача: ")
             specialty = input("Введите специальность врача: ")
             doctor = Doctor(name=name, specialty=specialty)
+            Doctor.add_doctor(doctor)
             print("Врач успешно добавлен.")
         except ValueError as e:
             print(f"Ошибка: {e}")
 
     elif choice == "2":
-        print("\nСписок врачей:")
-        for doctor in Doctor.get_all_doctors():
-            print(f"Имя: {doctor.name}, Специальность: {doctor.specialty}")
+        doctors = Doctor.get_all_doctors()
+        if not doctors:
+            print("Список врачей пуст.")
+        else:
+            print("\nСписок врачей:")
+            for doctor in doctors:
+                print(f"Имя: {doctor.name}, Специальность: {doctor.specialty}")
 
 def manage_appointments():
     print("\n=== Управление записями на прием ===")
@@ -86,6 +93,7 @@ def manage_appointments():
             patient = next(p for p in Patient.get_all_patients() if p.name == patient_name)
             doctor = next(d for d in Doctor.get_all_doctors() if d.name == doctor_name)
             appointment = Appointment(patient=patient, doctor=doctor, date=date)
+            Appointment.add_appointment(appointment)
             print("Запись на прием успешно добавлена.")
         except StopIteration:
             print("Пациент или врач не найден.")
@@ -93,9 +101,45 @@ def manage_appointments():
             print(f"Ошибка: {e}")
 
     elif choice == "2":
-        print("\nСписок записей:")
-        for appointment in Appointment.get_all_appointments():
-            print(f"Пациент: {appointment.patient.name}, Врач: {appointment.doctor.name}, Дата: {appointment.date}")
+        appointments = Appointment.get_all_appointments()
+        if not appointments:
+            print("Список записей пуст.")
+        else:
+            print("\nСписок записей:")
+            for appointment in appointments:
+                print(f"Пациент: {appointment.patient.name}, Врач: {appointment.doctor.name}, Дата: {appointment.date}")
+
+def manage_diagnoses():
+    print("\n=== Управление диагнозами ===")
+    print("1. Добавить диагноз")
+    print("2. Просмотреть все диагнозы")
+    print("3. Удалить диагноз")
+    choice = input("Выберите действие: ")
+
+    if choice == "1":
+        patient_name = input("Введите имя пациента: ")
+        diagnosis = input("Введите диагноз: ")
+        diag = Diagnosis(patient_name=patient_name, diagnosis=diagnosis)
+        Diagnosis.add_diagnosis(diag)
+        print("Диагноз успешно добавлен.")
+
+    elif choice == "2":
+        diagnoses = Diagnosis.get_all_diagnoses()
+        if not diagnoses:
+            print("Список диагнозов пуст.")
+        else:
+            print("\nСписок диагнозов:")
+            for diag in diagnoses:
+                print(f"Пациент: {diag.patient_name}, Диагноз: {diag.diagnosis}")
+
+    elif choice == "3":
+        try:
+            patient_name = input("Введите имя пациента для удаления диагноза: ")
+            diag = next(d for d in Diagnosis.get_all_diagnoses() if d.patient_name == patient_name)
+            Diagnosis.delete_diagnosis(diag)
+            print("Диагноз успешно удален.")
+        except StopIteration:
+            print("Диагноз для указанного пациента не найден.")
 
 def manage_data():
     print("\n=== Управление данными ===")
@@ -126,6 +170,8 @@ def main():
             manage_doctors()
         elif choice == "3":
             manage_appointments()
+        elif choice == "4":
+            manage_diagnoses()
         elif choice == "7":
             manage_data()
         elif choice == "0":

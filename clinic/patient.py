@@ -1,7 +1,9 @@
-from typing import Dict, Union
+from typing import Dict, Union, List
 
 
 class Patient:
+    patients: List['Patient'] = []
+
     def __init__(self, name: str, age: int):
         if not name or not isinstance(name, str):
             raise ValueError("Имя пациента должно быть непустой строкой.")
@@ -16,3 +18,15 @@ class Patient:
     @classmethod
     def from_dict(cls, data: Dict[str, Union[str, int]]):
         return cls(name=data["name"], age=data["age"])
+
+    @classmethod
+    def get_all_patients(cls) -> List['Patient']:
+        return cls.patients
+
+    @classmethod
+    def add_patient(cls, patient: 'Patient') -> None:
+        cls.patients.append(patient)
+
+    @classmethod
+    def delete_patient(cls, patient: 'Patient') -> None:
+        cls.patients.remove(patient)

@@ -1,9 +1,11 @@
-from typing import Dict, Union
+from typing import Dict, Union, List
 from clinic.patient import Patient
 from clinic.doctor import Doctor
 
 
 class Appointment:
+    appointments: List['Appointment'] = []
+
     def __init__(self, patient: Patient, doctor: Doctor, date: str):
         if not isinstance(patient, Patient):
             raise TypeError("patient должен быть экземпляром класса Patient.")
@@ -27,3 +29,15 @@ class Appointment:
         patient = Patient.from_dict(data["patient"])
         doctor = Doctor.from_dict(data["doctor"])
         return cls(patient=patient, doctor=doctor, date=data["date"])
+
+    @classmethod
+    def add_appointment(cls, appointment: 'Appointment') -> None:
+        cls.appointments.append(appointment)
+
+    @classmethod
+    def get_all_appointments(cls) -> List['Appointment']:
+        return cls.appointments
+
+    @classmethod
+    def delete_appointment(cls, appointment: 'Appointment') -> None:
+        cls.appointments.remove(appointment)
