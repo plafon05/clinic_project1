@@ -38,22 +38,6 @@ class MedicalCard:
             }
 
         @classmethod
-        def from_dict(cls, data: Dict[str, Union[str]]):
-            try:
-                # Логируем только данные пациента и номер карты
-                print(f"Загруженные данные для MedicalCard: {data}")
-
-                # Создаем объект пациента
-                patient = Patient.from_dict(data["patient"])
-
-                # Возвращаем объект без диагнозов
-                return cls(patient=patient, card_number=data["card_number"])
-
-            except Exception as e:
-                print(f"Ошибка при создании MedicalCard: {e}")
-                raise ValueError(f"Ошибка в MedicalCard.from_dict: {e}. Данные: {data}")
-
-        @classmethod
         def add_medical_card(cls, card: 'MedicalCard') -> None:
             cls.medical_cards.append(card)
 
@@ -73,9 +57,6 @@ class MedicalCard:
     @classmethod
     def from_dict(cls, data: Dict[str, Union[str]]):
         try:
-            # Логируем только данные пациента и номер карты
-            print(f"Загруженные данные для MedicalCard: {data}")
-
             # Создаем объект пациента
             patient = Patient.from_dict(data["patient"])
 

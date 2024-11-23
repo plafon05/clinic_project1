@@ -27,15 +27,21 @@ class Diagnosis:
     @classmethod
     def from_dict(cls, data: Dict[str, Union[str, List[Dict]]]):
         try:
-            # Если diagnoses — это словарь, превращаем в список
-            diagnoses_data = data.get("diagnoses", [])
-            if isinstance(diagnoses_data, dict):
-                diagnoses_data = [diagnoses_data]
-            diagnoses = [Diagnosis.from_dict(d) for d in diagnoses_data]
+            # Извлекаем данные пациента
+            patient = Patient.from_dict(data["patient"])
 
-            return cls(patient=patient, card_number=data["card_number"], diagnoses=diagnoses)
+            # Извлекаем описание и дату диагноза
+            description = data["description"]
+            date = data["date"]
+
+            # Создаем объект Diagnosis
+            return cls(patient=patient, description=description, date=date)
+
+        except KeyError as e:
+            raise ValueError(f"Отсутствует обязательное поле: {e}")
         except Exception as e:
-            raise ValueError(f"Ошибка в MedicalCard.from_dict: {e}")
+            raise ValueError(f"Ошибка при создании Diagnosis: {e}")
+
 
     @classmethod
     def add_diagnosis(cls, diagnosis: 'Diagnosis') -> None:
