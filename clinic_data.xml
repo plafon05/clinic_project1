@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<clinic_data>
+  <patients>
+    <patient>
+      <name>Мария Петрова</name>
+      <age>35</age>
+      <gender>Женщина</gender>
+      <patient_id>101</patient_id>
+    </patient>
+  </patients>
+  <appointments>
+    <appointment>
+      <appointment_id>1</appointment_id>
+      <date>2024-11-20</date>
+      <patient_id>101</patient_id>
+      <doctor_id>201</doctor_id>
+    </appointment>
+  </appointments>
+  <diagnoses>
+    <diagnosis>
+      <description>Грипп</description>
+      <date>2024-11-20</date>
+      <patient_id>101</patient_id>
+    </diagnosis>
+  </diagnoses>
+  <medical_cards>
+    <medical_card>
+      <card_number>MC202411001</card_number>
+      <patient>
+        <name>Мария Петрова</name>
+        <age>35</age>
+        <gender>Женщина</gender>
+        <patient_id>101</patient_id>
+      </patient>
+      <diagnoses>
+        <diagnosis>
+          <description>Грипп</description>
+          <date>2024-11-20</date>
+        </diagnosis>
+      </diagnoses>
+    </medical_card>
+  </medical_cards>
+  <recipes>
+    <recipe>
+      <recipe_id>301</recipe_id>
+      <patient_id>101</patient_id>
+      <medication>Амоксициллин</medication>
+      <dosage>250 мг 2 раза в день</dosage>
+      <duration>7 дней</duration>
+    </recipe>
+  </recipes>
+</clinic_data>
