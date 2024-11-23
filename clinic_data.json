@@ -1,0 +1,53 @@
+[
+  {
+    "patients": [
+        {
+            "name": "Мария Петрова",
+            "age": 35,
+            "gender": "Женщина",
+            "patient_id": 101
+        }
+    ],
+    "appointments": [
+        {
+            "appointment_id": 1,
+            "date": "2024-11-20",
+            "patient_id": 101,
+            "doctor_id": 201
+        }
+    ],
+    "diagnoses": [
+        {
+            "description": "Грипп",
+            "date": "2024-11-20",
+            "patient_id": 101
+        }
+    ],
+    "medical_cards": [
+        {
+            "card_number": "MC202411001",
+            "patient": {
+                "name": "Мария Петрова",
+                "age": 35,
+                "gender": "Женщина",
+                "patient_id": 101
+            },
+            "diagnoses": [
+                {
+                    "description": "Грипп",
+                    "date": "2024-11-20"
+                }
+            ]
+        }
+    ],
+    "recipes": [
+        {
+            "recipe_id": 301,
+            "patient_id": 101,
+            "medication": "Амоксициллин",
+            "dosage": "250 мг 2 раза в день",
+            "duration": "7 дней"
+        }
+    ]
+  }
+]
