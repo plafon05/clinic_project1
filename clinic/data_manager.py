@@ -37,7 +37,7 @@ class DataManager:
             return {}
 
     @staticmethod
-    def save_all_data(filename: str) -> None:
+    def save_all_data(filename: str = "clinic_data.json") -> None:
         """Сохранение всех данных в один JSON-файл."""
         data = {
             "patients": [patient.to_dict() for patient in Patient.patients_db],
@@ -60,6 +60,7 @@ class DataManager:
             # Загрузка данных в базы соответствующих классов
             if "patients" in data:
                 Patient.patients_db = [Patient.from_dict(patient) for patient in data["patients"]]
+                print(f"Пациенты после загрузки: {Patient.patients_db}")
 
             if "appointments" in data:
                 Appointment.appointments_db = [Appointment.from_dict(appointment) for appointment in data["appointments"]]
@@ -73,6 +74,6 @@ class DataManager:
             if "recipes" in data:
                 Recipe.recipes_db = [Recipe.from_dict(recipe) for recipe in data["recipes"]]
 
-            print("Все данные успешно загружены из файла {filename}.")
+            print(f"Все данные успешно загружены из файла {filename}.")
         except Exception as e:
             print(f"Ошибка при обработке данных из файла {filename}: {e}")

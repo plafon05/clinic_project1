@@ -2,7 +2,8 @@ from typing import Dict, Union, List
 
 
 class Patient:
-    patients: List['Patient'] = []
+    # Инициализация атрибута на уровне класса
+    patients_db: List['Patient'] = []
 
     def __init__(self, name: str, age: int, gender: str, patient_id: int):
         if not name or not isinstance(name, str):
@@ -21,21 +22,40 @@ class Patient:
     def __repr__(self):
         return f"Patient(name={self.name}, age={self.age}, gender={self.gender}, patient_id={self.patient_id})"
 
-    def to_dict(self) -> Dict[str, Union[str, int]]:
-        return {"name": self.name, "age": self.age, "gender": self.gender, "patient_id": self.patient_id}
-
     @classmethod
-    def from_dict(cls, data: Dict[str, Union[str, int]]):
-        return cls(name=data["name"], age=data["age"], gender=data["gender"], patient_id=data["patient_id"])
+    def from_dict(cls, data: Dict[str, Union[str, int]]) -> 'Patient':
+        """Создает объект Patient из словаря."""
+        try:
+            return cls(
+                name=data["name"],
+                age=data["age"],
+                gender=data["gender"],
+                patient_id=data["patient_id"]
+            )
+        except KeyError as e:
+            print(f"Ошибка: отсутствует обязательное поле {e} в данных {data}")
+            raise
+
+    def to_dict(self) -> Dict[str, Union[str, int]]:
+        """Преобразует объект Patient в словарь."""
+        return {
+            "name": self.name,
+            "age": self.age,
+            "gender": self.gender,
+            "patient_id": self.patient_id
+        }
 
     @classmethod
     def get_all_patients(cls) -> List['Patient']:
-        return cls.patients
+        """Возвращает список всех пациентов."""
+        return cls.patients_db
 
     @classmethod
     def add_patient(cls, patient: 'Patient') -> None:
-        cls.patients.append(patient)
+        """Добавляет пациента в базу данных."""
+        cls.patients_db.append(patient)
 
     @classmethod
     def delete_patient(cls, patient: 'Patient') -> None:
-        cls.patients.remove(patient)
+        """Удаляет пациента из базы данных."""
+        cls.patients_db.remove(patient)
