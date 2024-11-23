@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Appointments>
+    <patient>
+        <name>Мария Петрова</name>
+        <age>35</age>
+        <gender>Женщина</gender>
+        <patient_id>101</patient_id>
+    </patient>
+    <doctor>
+        <name>Иван Иванов</name>
+        <specialty>Терапевт</specialty>
+    </doctor>
+    <date>2024-11-22</date>
+</Appointments>
+

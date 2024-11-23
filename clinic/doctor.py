@@ -13,11 +13,20 @@ class Doctor:
         self.specialty = specialty
 
     def to_dict(self) -> Dict[str, str]:
-        return {"name": self.name, "specialty": self.specialty}
+        return {
+            "name": self.name,
+            "specialty": self.specialty,
+        }
 
     @classmethod
     def from_dict(cls, data: Dict[str, str]):
-        return cls(name=data["name"], specialty=data["specialty"])
+        try:
+            return cls(
+                name=data["name"],
+                specialty=data["specialty"],
+            )
+        except KeyError as e:
+            raise ValueError(f"Отсутствует обязательное поле: {e}")
 
     @classmethod
     def add_doctor(cls, doctor: 'Doctor') -> None:
@@ -29,4 +38,6 @@ class Doctor:
 
     @classmethod
     def delete_doctor(cls, doctor: 'Doctor') -> None:
+        if doctor not in cls.doctors:
+            raise ValueError("Такой врач не найден в списке.")
         cls.doctors.remove(doctor)

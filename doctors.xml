@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<clinic_data>
+    <Doctors>
+        <Doctor>
+            <name>Доктор Сидоров</name>
+            <specialty>кардиолог</specialty>
+        </Doctor>
+        <Doctor>
+            <name>Доктор Кузнецов</name>
+            <specialty>невролог</specialty>
+        </Doctor>
+    </Doctors>
+</clinic_data>

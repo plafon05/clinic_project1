@@ -29,11 +29,13 @@ def manage_patients():
         try:
             name = input("Введите имя пациента: ")
             age = int(input("Введите возраст пациента: "))
-            patient = Patient(name=name, age=age)
+            gender = input("Введите пол пациента: ")
+            patient_id = int(input("Введите id пациента: "))
+            patient = Patient(name=name, age=age, gender=gender, patient_id=patient_id)
             Patient.add_patient(patient)
             print("Пациент успешно добавлен.")
         except ValueError:
-            print("Ошибка: возраст должен быть числом.")
+            print("Ошибка: какое-то из значений введено неверно")
 
     elif choice == "2":
         patients = Patient.get_all_patients()
@@ -42,16 +44,17 @@ def manage_patients():
         else:
             print("\nСписок пациентов:")
             for patient in patients:
-                print(f"Имя: {patient.name}, Возраст: {patient.age}")
+                print(f"Имя: {patient.name}, Возраст: {patient.age}, Пол: {patient.gender}, ID: {patient.patient_id} ")
 
     elif choice == "3":
         try:
             name = input("Введите имя пациента для удаления: ")
-            patient = next(p for p in Patient.get_all_patients() if p.name == name)
+            patient_id = int(input("Введите id пациента для удаления: "))
+            patient = next(p for p in Patient.get_all_patients() if (p.name == name & p.patient_id == patient_id))
             Patient.delete_patient(patient)
             print("Пациент успешно удален.")
         except StopIteration:
-            print("Пациент с таким именем не найден.")
+            print("Пациент с таким именем и id не найден.")
 
 def manage_doctors():
     print("\n=== Управление врачами ===")

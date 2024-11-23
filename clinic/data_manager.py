@@ -30,7 +30,7 @@ class DataManager:
             with open(filename, 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 # Преобразуем словари обратно в объекты класса
-                objects = [class_type(**item) for item in data]
+                objects = [class_type.from_dict(item) for item in data]  # Используем from_dict
             print(f"Данные успешно загружены из {filename}")
             return objects
         except Exception as e:

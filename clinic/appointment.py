@@ -17,6 +17,9 @@ class Appointment:
         self.doctor = doctor
         self.date = date
 
+    def __repr__(self):
+        return f"Appointment(date={self.date}, doctor={self.doctor}, patient={self.patient})"
+
     def to_dict(self) -> Dict[str, Union[str, Dict]]:
         return {
             "patient": self.patient.to_dict(),
@@ -26,9 +29,26 @@ class Appointment:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Union[str, Dict]]):
-        patient = Patient.from_dict(data["patient"])
-        doctor = Doctor.from_dict(data["doctor"])
-        return cls(patient=patient, doctor=doctor, date=data["date"])
+        try:
+            patient = Patient.from_dict(data["patient"])
+            if isinstance(data.get("doctor"), dict):
+                doctor = Doctor.from_dict(data["doctor"])
+            elif "doctor_id" in data:
+                # Получить объект Doctor по ID, если он доступен
+                doctor = next((doc for doc in Doctor.get_all_doctors() if doc.doctor_id == data["doctor_id"]), None)
+                if not doctor:
+                    raise ValueError(f"Доктор с ID {data['doctor_id']} не найден.")
+            else:
+                raise ValueError("Отсутствует обязательное поле: 'doctor' или 'doctor_id'")
+
+            date = data["date"]
+            if not isinstance(date, str):
+                raise ValueError("Поле 'date' должно быть строкой.")
+            return cls(patient=patient, doctor=doctor, date=date)
+        except KeyError as e:
+            raise ValueError(f"Отсутствует обязательное поле: {e}")
+        except Exception as e:
+            raise ValueError(f"Ошибка при создании Appointment: {e}")
 
     @classmethod
     def add_appointment(cls, appointment: 'Appointment') -> None:

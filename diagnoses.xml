@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<clinic_data>
+   <Diagnoses>
+    <patient>
+        <name>Мария Петрова</name>
+        <age>35</age>
+        <gender>Женщина</gender>
+        <patient_id>101</patient_id>
+    </patient>
+    <description>Грипп</description>
+    <date>2024-11-20</date>
+</Diagnoses>
+</clinic_data>

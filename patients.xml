@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<clinic_data>
+    <Patients>
+        <Patient>
+            <name>Иван Иванов</name>
+            <age>35</age>
+            <gender>мужской</gender>
+            <patient_id>1</patient_id>
+        </Patient>
+        <Patient>
+            <name>Анна Петрова</name>
+            <age>28</age>
+            <gender>женский</gender>
+            <patient_id>2</patient_id>
+        </Patient>
+    </Patients>
+</clinic_data>
